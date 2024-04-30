@@ -77,6 +77,19 @@ for batch in iter(test_loader):
 
 print(f"\nTEST ACCURACY: {((correct_predictions / total_predictions) * 100):.2f}")
 
+# code for plotting results
+batch = next(iter(test_loader))
+images, labels = batch
+
+fig, ax = plt.subplots(nrows=1, ncols=4, figsize=(16,8))
+for i in range(4):
+    image = images[i]
+    prediction = torch.softmax(model(image), dim=0)
+    prediction = torch.argmax(prediction, dim=0)
+    # print(type(prediction), type(prediction.item()))
+    ax[i].imshow(image.view(28, 28))
+    ax[i].set_title(f'Prediction: {prediction.item()}')
+    plt.show()
 
 
 
